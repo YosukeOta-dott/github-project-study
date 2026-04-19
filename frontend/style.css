@@ -1,0 +1,121 @@
+/* リセット */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 背景と全体レイアウト */
+body {
+    background-color: #f5f7fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* タイトル */
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* フォームコンテナ */
+#contactForm {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* ラベル */
+#contactForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* 入力フィールド・テキストエリア */
+#contactForm .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+#contactForm .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* 送信ボタン */
+#contactForm button {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#contactForm button:hover {
+    background-color: #0056b3;
+}
+
+/* レスポンスメッセージ */
+#responseMsg {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+/* ダイアログ */
+dialog {
+    width: 50vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    position: fixed; /* または absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 送信ボタン */
+dialog button {
+    height: 36px;
+    line-height: 16px;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+dialog button:hover {
+    background-color: #787878;
+}
+
+dialog button.confirm {
+    background-color: #007bff;
+    color: #fff;
+}
+dialog button.confirm:hover {
+    background-color: #0056b3;
+}
+
+dialog hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}

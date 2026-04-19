@@ -1,0 +1,47 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>お問い合わせフォーム</title>
+    <!-- Issue 1: ./style.css へのリンクを追加する -->
+  </head>
+  <body>
+    <h1>お問い合わせフォーム</h1>
+    <form id="contactForm">
+      <label for="name">お名前:</label><br />
+      <!-- Issue 1: classを追加する -->
+      <input type="text" id="name" name="name" required value="" /><br /><br />
+
+      <label for="email">メールアドレス:</label><br />
+      <!-- Issue 1: classを追加する -->
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        value=""
+      /><br /><br />
+
+      <!-- Issue 2: 電話番号フォームを追加する（inputのクラス名にform-controlを追加する） -->
+
+      <label for="message">お問い合わせ内容:</label><br />
+      <!-- Issue 1: classを追加する -->
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        cols="40"
+        required
+      ></textarea
+      ><br /><br />
+
+      <button type="submit">送信</button>
+    </form>
+
+    <p id="responseMsg"></p>
+    <!-- Issue 3: ダイアログを追加する -->
+
+    <script src="./script.js"></script>
+  </body>
+</html>

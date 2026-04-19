@@ -1,0 +1,43 @@
+name: Check for PR review
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - "backend/**"
+      - "frontend/**"
+  
+jobs:
+  check-style-frontend:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      # Node.jsのセットアップ
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "20.x"
+
+      - name: Lint
+        working-directory: ./frontend
+        run: |
+          npm ci
+          npx eslint .
+  check-style-backend:
+    needs: check-style-frontend
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v2
+      # Node.jsのセットアップ
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "20.x"
+
+      - name: Lint
+        working-directory: ./backend
+        run: |
+          npm ci
+          npx eslint .

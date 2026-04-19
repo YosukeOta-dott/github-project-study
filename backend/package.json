@@ -1,0 +1,14 @@
+{
+    "name": "contact-backend",
+    "version": "1.0.0",
+    "description": "Simple contact form backend",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "devDependencies": {
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-prettier": "^5.2.3",
+        "prettier": "3.5.1"
+    }
+}
