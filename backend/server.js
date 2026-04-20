@@ -18,8 +18,21 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.method === "POST" && req.url === "/contact") {
-    // Issue 4: 5秒以内に同じIPアドレスからリクエストがあった場合に拒否する
     const ip = req.connection.remoteAddress;
+    const now = Date.now();
+
+    if (IP_CACHE[ip] && now - IP_CACHE[ip] < 5000) {
+      res.writeHead(429, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          success: false,
+          error: "一定時間内に連続して送信することはできません",
+        }),
+      );
+      return;
+    }
+
+    IP_CACHE[ip] = now;
 
     let body = "";
 

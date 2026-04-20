@@ -36,8 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           responseMsg.textContent = "エラーが発生しました。";
         }
+      } else if (res.status === 429) {
+        responseMsg.textContent =
+          "連続した送信が確認されました。少し時間を置き、再度送信してください。";
       } else {
-        // Issue 4: 429 Too Many Requestsの場合、エラーメッセージ「連続した送信が確認されました。少し時間を置き、再度送信してください。」と表示する
         responseMsg.textContent = "エラーが発生しました。";
       }
     } catch (error) {
