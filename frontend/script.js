@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Issue 3: ダイアログ(id=confirmDialog)を表示して、submitのeventlistenerの処理を終了する
     // Issue 3: これまでの処理は、id=confirmBtnのclickイベントで実行する
     const a = 1;
-const b = a+1;
+const b = a + 1;
 
     confirmDialog.showModal();
     return;
