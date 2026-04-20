@@ -39,6 +39,9 @@ const server = http.createServer((req, res) => {
         // Issue 5: 電話番号とIPアドレスを追加する
         line += `\n`;
 
+        const a = 1;
+        const b = a + 1;
+
         fs.appendFileSync(CSV_FILE, line, "utf8");
 
         res.writeHead(200, { "Content-Type": "application/json" });

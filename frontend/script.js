@@ -25,11 +25,11 @@ const b = a + 1;
     event.preventDefault();
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
     const message = document.getElementById("message").value.trim();
-    // Issue 2: 電話番号（id=tel）の入力欄を追加
 
     // Issue 2: 電話番号の入力も確認する
-    if (!name || !email || !message) {
+    if (!name || !email || !phone || !message) {
       responseMsg.textContent = "すべてのフィールドを入力してください。";
       return;
     }
@@ -41,8 +41,7 @@ const b = a + 1;
       const res = await fetch("http://localhost:3000/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Issue 2: 電話番号を送信する
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, phone, message }),
       });
 
       if (res.ok) {
