@@ -21,14 +21,20 @@ const server = http.createServer((req, res) => {
   if (req.method === "POST" && req.url === "/contact") {
     // Issue 4: 5秒以内に同じIPアドレスからリクエストがあった場合に拒否する
     const forwardedFor = req.headers["x-forwarded-for"];
-    const ip = (typeof forwardedFor === "string"
-      ? forwardedFor.split(",")[0]
-      : req.socket?.remoteAddress || req.connection?.remoteAddress || "unknown"
+    const ip = (
+      typeof forwardedFor === "string"
+        ? forwardedFor.split(",")[0]
+        : req.socket?.remoteAddress ||
+          req.connection?.remoteAddress ||
+          "unknown"
     ).trim();
     const now = Date.now();
     const lastRequestAt = IP_CACHE[ip];
 
-    if (typeof lastRequestAt === "number" && now - lastRequestAt < DUPLICATE_WINDOW_MS) {
+    if (
+      typeof lastRequestAt === "number" &&
+      now - lastRequestAt < DUPLICATE_WINDOW_MS
+    ) {
       res.writeHead(429, { "Content-Type": "application/json" });
       res.end(
         JSON.stringify({
