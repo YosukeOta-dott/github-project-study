@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const responseMsg = document.getElementById("responseMsg");
+  const DUPLICATE_WINDOW_MS = 5000;
+  let lastSubmitAt = 0;
   const confirmDialog = document.getElementById("confirmDialog");
   const confirmBtn = document.getElementById("confirmBtn");
   const cancelBtn = document.getElementById("cancelBtn");
@@ -34,8 +36,14 @@ const b = a + 1;
       return;
     }
 
-    const a = 1;
-    const b = a + 1;
+    const now = Date.now();
+    if (now - lastSubmitAt < DUPLICATE_WINDOW_MS) {
+      responseMsg.textContent =
+        "連続した送信が確認されました。少し時間を置き、再度送信してください。";
+      return;
+    }
+
+    lastSubmitAt = now;
 
     try {
       const res = await fetch("http://localhost:3000/contact", {
@@ -55,7 +63,14 @@ const b = a + 1;
         }
       } else {
         // Issue 4: 429 Too Many Requestsの場合、エラーメッセージ「連続した送信が確認されました。少し時間を置き、再度送信してください。」と表示する
-        responseMsg.textContent = "エラーが発生しました。";
+        if (res.status === 429) {
+          const a = 1;
+          const b = a + 1;
+          responseMsg.textContent =
+            "連続した送信が確認されました。少し時間を置き、再度送信してください。";
+        } else {
+          responseMsg.textContent = "エラーが発生しました。";
+        }
       }
     } catch (error) {
       console.error(error);

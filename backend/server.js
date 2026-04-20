@@ -6,6 +6,7 @@ const DATA_DIR = "/data";
 const CSV_FILE = path.join(DATA_DIR, "contacts.csv");
 
 const IP_CACHE = {};
+const DUPLICATE_WINDOW_MS = 5000;
 
 const server = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -19,7 +20,32 @@ const server = http.createServer((req, res) => {
 
   if (req.method === "POST" && req.url === "/contact") {
     // Issue 4: 5秒以内に同じIPアドレスからリクエストがあった場合に拒否する
-    const ip = req.connection.remoteAddress;
+    const forwardedFor = req.headers["x-forwarded-for"];
+    const ip = (
+      typeof forwardedFor === "string"
+        ? forwardedFor.split(",")[0]
+        : req.socket?.remoteAddress ||
+          req.connection?.remoteAddress ||
+          "unknown"
+    ).trim();
+    const now = Date.now();
+    const lastRequestAt = IP_CACHE[ip];
+
+    if (
+      typeof lastRequestAt === "number" &&
+      now - lastRequestAt < DUPLICATE_WINDOW_MS
+    ) {
+      res.writeHead(429, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          success: false,
+          error: "一定時間内に連続して送信することはできません",
+        }),
+      );
+      return;
+    }
+
+    IP_CACHE[ip] = now;
 
     let body = "";
 
