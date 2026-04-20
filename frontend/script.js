@@ -34,6 +34,9 @@ const b = a + 1;
       return;
     }
 
+    const a = 1;
+    const b = a + 1;
+
     try {
       const res = await fetch("http://localhost:3000/contact", {
         method: "POST",
