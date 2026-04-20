@@ -30,13 +30,15 @@ const server = http.createServer((req, res) => {
     req.on("end", () => {
       try {
         // Issue 5: 電話番号を受け取る
-        const { name, email, message } = JSON.parse(body);
+        const { name, email, message, phone } = JSON.parse(body);
 
         let line = `${new Date().toISOString()}`;
         line += `,${escapeCsv(name)}`;
         line += `,${escapeCsv(email)}`;
         line += `,${escapeCsv(message)}`;
         // Issue 5: 電話番号とIPアドレスを追加する
+        line += `,${escapeCsv(phone)}`;
+        line += `,${escapeCsv(ip)}`;
         line += `\n`;
 
         fs.appendFileSync(CSV_FILE, line, "utf8");
