@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
         line += `\n`;
 
         const a = 1;
-        const b = a+1;
+        const b = a + 1;
 
         fs.appendFileSync(CSV_FILE, line, "utf8");
 
