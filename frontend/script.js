@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Issue 4: 429 Too Many Requestsの場合、エラーメッセージ「連続した送信が確認されました。少し時間を置き、再度送信してください。」と表示する
         if (res.status === 429) {
           const a = 1;
-          const b = a+1;
+          const b = a + 1;
           responseMsg.textContent =
             "連続した送信が確認されました。少し時間を置き、再度送信してください。";
         } else {
