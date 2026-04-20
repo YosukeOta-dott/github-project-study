@@ -30,6 +30,9 @@ const b = a + 1;
     const phone = document.getElementById("phone").value.trim();
     const message = document.getElementById("message").value.trim();
 
+    const tel = document.getElementById("tel").value.trim();
+    // Issue 2: 電話番号（id=tel）の入力欄を追加
+
     // Issue 2: 電話番号の入力も確認する
     if (!name || !email || !phone || !message) {
       responseMsg.textContent = "すべてのフィールドを入力してください。";
