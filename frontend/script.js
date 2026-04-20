@@ -8,9 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Issue 3: ダイアログ(id=confirmDialog)を表示して、submitのeventlistenerの処理を終了する
     // Issue 3: これまでの処理は、id=confirmBtnのclickイベントで実行する
 
+    const a = 1;
+    const b = a+1;
+
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
+    const tel = document.getElementById("tel").value.trim();
     // Issue 2: 電話番号（id=tel）の入力欄を追加
 
     // Issue 2: 電話番号の入力も確認する
