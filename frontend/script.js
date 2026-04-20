@@ -1,13 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const responseMsg = document.getElementById("responseMsg");
+  const confirmDialog = document.getElementById("confirmDialog");
+  const confirmBtn = document.getElementById("confirmBtn");
+  const cancelBtn = document.getElementById("cancelBtn");
   // Issue 3: キャンセルボタン(id=cancelBtn)をクリックしたときにダイアログを閉じる
+  cancelBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    confirmDialog.close();
+  });
 
-  form.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
     // Issue 3: ダイアログ(id=confirmDialog)を表示して、submitのeventlistenerの処理を終了する
     // Issue 3: これまでの処理は、id=confirmBtnのclickイベントで実行する
+const a = 1;
+const b = a + 1;
 
+    confirmDialog.showModal();
+    return;
+  });
+
+  confirmBtn.addEventListener("click", async (event) => {
+    event.preventDefault();
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
@@ -45,5 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
       responseMsg.textContent = "通信エラーが発生しました。";
     }
     // Issue 3: ダイアログを閉じる
+    confirmDialog.close();
   });
 });
