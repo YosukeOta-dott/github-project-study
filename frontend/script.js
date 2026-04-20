@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const responseMsg = document.getElementById("responseMsg");
+  const DUPLICATE_WINDOW_MS = 5000;
+  let lastSubmitAt = 0;
   // Issue 3: キャンセルボタン(id=cancelBtn)をクリックしたときにダイアログを閉じる
 
   form.addEventListener("submit", async (event) => {
@@ -18,6 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
       responseMsg.textContent = "すべてのフィールドを入力してください。";
       return;
     }
+
+    const now = Date.now();
+    if (now - lastSubmitAt < DUPLICATE_WINDOW_MS) {
+      responseMsg.textContent =
+        "連続した送信が確認されました。少し時間を置き、再度送信してください。";
+      return;
+    }
+
+    lastSubmitAt = now;
 
     try {
       const res = await fetch("http://localhost:3000/contact", {
@@ -38,7 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } else {
         // Issue 4: 429 Too Many Requestsの場合、エラーメッセージ「連続した送信が確認されました。少し時間を置き、再度送信してください。」と表示する
-        responseMsg.textContent = "エラーが発生しました。";
+        if (res.status === 429) {
+          responseMsg.textContent =
+            "連続した送信が確認されました。少し時間を置き、再度送信してください。";
+        } else {
+          responseMsg.textContent = "エラーが発生しました。";
+        }
       }
     } catch (error) {
       console.error(error);
